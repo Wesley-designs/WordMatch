@@ -12,12 +12,9 @@ public WordMatch(String word)
 */
 public int scoreGuess(String guess)
 {
-    String temp = secret;
     int count = 0;
-    while (temp.indexOf(guess) != 0) {
-        int amt = temp.indexOf(guess);
-        temp = temp.substring(0,amt) + temp.substring(amt+guess.length(),temp.length());
-        count++;
+    for (int i=0; i<secret.length()-guess.length()+1; i++) {
+        if (secret.substring(i,i+guess.length()).equals(guess)) count++;
     }
     return (count*guess.length()*guess.length());
 }
@@ -32,8 +29,10 @@ public String findBetterGuess(String guess1, String guess2)
         return guess1;
     } else if (scoreGuess(guess2)>scoreGuess(guess1)) {
         return guess2;
+    } else if (guess1.compareTo(guess2)>0) {
+        return guess1;
     } else {
-        
+        return guess2;
     }
 }
 }
